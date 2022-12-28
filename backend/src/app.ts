@@ -1,8 +1,8 @@
 import express from 'express';
 import cors, { CorsOptions } from 'cors';
 import cookieParser from 'cookie-parser';
-import { getAPI } from './worker';
-
+import { cronJob } from '../public/worker';
+import { router as violationRouter } from './routes/violation'
 
 const app = express();
 
@@ -14,11 +14,14 @@ const corsOptions: CorsOptions = {
     origin: process.env.FRONTEND_URL || 'http://localhost:3000'
 };
 
-const data = getAPI();
+const worker = cronJob;
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
+
+app.use('/api/violations', violationRouter);
+
 
 app.listen(port, () => {
     console.log(`Birdnest protection API is listening at port ${port}`);
