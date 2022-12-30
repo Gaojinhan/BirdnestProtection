@@ -44,7 +44,7 @@ const getPilot = async (serialNumber: string) => {
     
 }
 
-export const cronJob = cron.schedule('*/10 * * * * *', () => {
-    getAPI();
+export const cronJob = cron.schedule('*/10 * * * * *', async() => {
+    await getAPI();
     console.log('running a task every 10 second');
 });

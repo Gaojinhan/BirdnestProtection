@@ -14,14 +14,13 @@ const corsOptions: CorsOptions = {
     origin: process.env.FRONTEND_URL || 'http://localhost:3000'
 };
 
-const worker = cronJob;
+const dataWorker = cronJob;
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
 
 app.use('/api/violations', violationRouter);
-
 
 app.listen(port, () => {
     console.log(`Birdnest protection API is listening at port ${port}`);
