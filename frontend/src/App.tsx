@@ -2,27 +2,39 @@ import React from 'react';
 import './App.css';
 import Header from './components/Header/Header';
 import InfoList from './components/List/InfoList';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import client from './services/axiosConfigurer';
 
 function App() {
 
-  const [violations, setviolations] = useState([
-    {
-        firstName: "Dexter",
-        lastName:"Metz",
-        phoneNumber:"+210635740914",
-        createdDt:"2022-05-14T19:40:09.417Z",
-        email:"dexter.metz@example.com"
-    },
+  const [violations, setviolations] = useState([])
 
-    {
-        firstName: "Darlene",
-        lastName:"Langosh",
-        phoneNumber:"+210569539090",
-        createdDt:"2022-08-23T22:32:06.683Z",
-        email:"darlene.langosh@example.com"
+useEffect(() => {
+  /* client.get('/violations').then((response) => {
+    const ws = new WebSocket('ws://localhost:8081');
+    ws.onmessage = function (event) {
+    try {
+        console.log("I receive something at least.",event.data);
+        setviolations(JSON.parse(event.data));
+    } catch (err) {
+        console.log(err);
     }
-])
+  };
+    //clean up function
+    return () => ws.close();
+    
+  }); */
+  
+  /* client.get('/violations').then((response) => {
+    setviolations(response.data);
+  }); */
+  const timer = setInterval(() => {
+    client.get('/violations').then((response) => {
+      setviolations(response.data);
+    });
+  }, 5000);
+  return () => clearInterval(timer);
+}, []);
 
 
   return (
