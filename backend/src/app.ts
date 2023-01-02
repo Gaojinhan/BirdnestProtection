@@ -3,6 +3,7 @@ import cors, { CorsOptions } from 'cors';
 import cookieParser from 'cookie-parser';
 import { cronJob } from '../public/worker';
 import { router as violationRouter } from './routes/violation'
+import redisClient from '../public/redisClient'
 
 const app = express();
 
@@ -14,7 +15,8 @@ const corsOptions: CorsOptions = {
     origin: process.env.FRONTEND_URL || 'http://localhost:3000'
 };
 
-const dataWorker = cronJob;
+const dataWorker = cronJob; 
+
 
 app.use(express.json());
 app.use(cookieParser());

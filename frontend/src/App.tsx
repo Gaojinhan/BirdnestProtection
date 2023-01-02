@@ -10,24 +10,6 @@ function App() {
   const [violations, setviolations] = useState([])
 
 useEffect(() => {
-  /* client.get('/violations').then((response) => {
-    const ws = new WebSocket('ws://localhost:8081');
-    ws.onmessage = function (event) {
-    try {
-        console.log("I receive something at least.",event.data);
-        setviolations(JSON.parse(event.data));
-    } catch (err) {
-        console.log(err);
-    }
-  };
-    //clean up function
-    return () => ws.close();
-    
-  }); */
-  
-  /* client.get('/violations').then((response) => {
-    setviolations(response.data);
-  }); */
   const timer = setInterval(() => {
     client.get('/violations').then((response) => {
       setviolations(response.data);
