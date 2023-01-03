@@ -5,6 +5,9 @@ import { cronJob } from '../public/worker';
 import { router as violationRouter } from './routes/violation'
 import redisClient from '../public/redisClient'
 
+// Import enviroment configuration file
+require('dotenv').config()
+
 const app = express();
 
 // Server port

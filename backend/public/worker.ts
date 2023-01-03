@@ -2,7 +2,9 @@ import cron from 'node-cron';
 import { RequestInfo, RequestInit } from 'node-fetch';
 import { DOMParser, XMLSerializer } from 'xmldom';
 import redisClient from './redisClient'
-
+import {Violation} from '../src/models/violationModel'
+import violation from 'violations';
+import violationModel from 'violationModel';
 // Dom file process
 const parser = new DOMParser();
 
@@ -31,10 +33,23 @@ const getPilot = async (serialNumber: string) => {
         return;
     }
 
-    const res:string = await fetch('http://assignments.reaktor.com/birdnest/pilots/'+serialNumber)
+    const res: string = await fetch('http://assignments.reaktor.com/birdnest/pilots/'+serialNumber)
                         .then(res => res.text());
     console.log(`New data:${res}`);
     const noncachedPost: string = await redisClient.setEx(serialNumber, 60*10, res);
+    const resObj: violation = JSON.parse(res);
+    const violationSchema: violationModel = {
+      ID: resObj.pilotId,
+      firstName: resObj.firstName,
+      lastName: resObj.lastName,
+      phoneNumber: resObj.phoneNumber,
+      createdDt: resObj.createdDt,
+      email: resObj.email,
+    }
+
+    await Violation.create(violationSchema)
+      .then(data=>console.log("The data is stroed in Postgre"))
+      .catch(err => console.log("The error message is:",err))
 
     if (!noncachedPost) {
       console.error("Store in cache unsuccessfully!");
