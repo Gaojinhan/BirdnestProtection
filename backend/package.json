@@ -4,8 +4,8 @@
   "main": "src/app.ts",
   "scripts": {
     "start:dev": "nodemon -e js,ts,json src/app.ts",
-    "start": "ts-node src/app.ts",
-    "build": "node build.js",
+    "node app.js": "ts-node src/app.ts",
+    "yarn": "node build.js",
     "commit-a": "git add . && git cz",
     "commit": "git cz",
     "lint": "tslint --project \"tsconfig.json\"",
