@@ -5,7 +5,7 @@
   "scripts": {
     "start:dev": "nodemon -e js,ts,json src/app.ts",
     "node app.js": "ts-node src/app.ts",
-    "yarn": "node build.js",
+    "build": "node build.js",
     "commit-a": "git add . && git cz",
     "commit": "git cz",
     "lint": "tslint --project \"tsconfig.json\"",
