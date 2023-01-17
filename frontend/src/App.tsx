@@ -22,7 +22,7 @@ useEffect(() => {
     ).then((response) => {
       setviolations(response.data);
     });
-  }, 5000);
+  }, 1000);
   return () => clearInterval(timer);
 }, []);
 
