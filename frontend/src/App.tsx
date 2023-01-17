@@ -11,6 +11,10 @@ function App() {
   const [violations, setviolations] = useState([])
 
 useEffect(() => {
+  
+  client.get('/violations').then((response) => {
+    setviolations(response.data);
+  });
 
   const timer = setInterval(async() => {
     await axios.get(
@@ -18,7 +22,7 @@ useEffect(() => {
     ).then((response) => {
       setviolations(response.data);
     });
-  }, 1000);
+  }, 3000);
   return () => clearInterval(timer);
 }, []);
 
