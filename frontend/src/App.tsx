@@ -4,14 +4,22 @@ import Header from './components/Header/Header';
 import InfoList from './components/List/InfoList';
 import { useState, useEffect } from 'react';
 import client from './services/axiosConfigurer';
+import axios from 'axios';
 
 function App() {
 
   const [violations, setviolations] = useState([])
 
 useEffect(() => {
-  const timer = setInterval(() => {
+  /* const timer = setInterval(() => {
     client.get('/violations').then((response) => {
+      setviolations(response.data);
+    });
+  }, 5000); */
+  const timer = setInterval(async() => {
+    await axios.get(
+      "https://birdnestprotectionapi.onrender.com/api/violations"
+    ).then((response) => {
       setviolations(response.data);
     });
   }, 5000);
