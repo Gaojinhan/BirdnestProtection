@@ -11,11 +11,11 @@ function App() {
   const [violations, setviolations] = useState([])
 
 useEffect(() => {
-  /* const timer = setInterval(() => {
-    client.get('/violations').then((response) => {
-      setviolations(response.data);
-    });
-  }, 5000); */
+  
+  client.get('/violations').then((response) => {
+    setviolations(response.data);
+  });
+
   const timer = setInterval(async() => {
     await axios.get(
       "https://birdnestprotectionapi.onrender.com/api/violations"
